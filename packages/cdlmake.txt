@@ -1,0 +1,111 @@
+parameter cout: 3
+should in format: findinfile path filepatten searchstring
+./redboot/v3_0/cdl/redboot.cdl:329:        make -priority 320 {
+./redboot/v3_0/cdl/redboot.cdl:490:                   Note: there is little need to make this larger than
+./redboot/v3_0/cdl/redboot.cdl:669:              This option controls whether or not RedBoot will make
+./redboot/v3_0/cdl/redboot.cdl:671:              in fact in user RAM.  Leaving the option enabled makes
+./compat/uitron/v3_0/cdl/version.cdl:51:cdl_option CYGNUM_UITRON_VER_MAKER {
+./compat/uitron/v3_0/cdl/version.cdl:52:    display       "OS maker"
+./compat/uitron/v3_0/cdl/version.cdl:57:        This value is returned in the 'maker'
+./compat/uitron/v3_0/cdl/uitron.cdl:112:            uITRON functions can be inline: set this to make it so.
+./compat/uitron/v3_0/cdl/uitron.cdl:126:            set this to make it so.
+./compat/uitron/v3_0/cdl/uitron.cdl:127:            This option may make debugging your program easier,
+./compat/uitron/v3_0/cdl/uitron.cdl:141:            and improves performance: set this to make it so.
+./kernel/v3_0/cdl/interrupts.cdl:62:        make use of DSRs directly or indirectly then it is possible
+./kernel/v3_0/cdl/interrupts.cdl:65:        that the kernel real-time clock makes use of DSRs, as do many
+./kernel/v3_0/cdl/counters.cdl:100:        application only makes use of a small number of alarms."
+./kernel/v3_0/cdl/counters.cdl:140:        However, it makes adding an alarm to the list more expensive
+./kernel/v3_0/cdl/scheduler.cdl:129:# NOTE: This option only makes sense if the current scheduler
+./kernel/v3_0/cdl/scheduler.cdl:167:            sorted by priority. Note that this makes the thread queueing
+./kernel/v3_0/cdl/scheduler.cdl:175:# NOTE: this option only makes sense for some of the schedulers.
+./kernel/v3_0/cdl/scheduler.cdl:210:        description "This option makes timslicing a per-thread runtime
+./kernel/v3_0/cdl/scheduler.cdl:233:	display       "Make ASR function global"
+./kernel/v3_0/cdl/scheduler.cdl:243:	display       "Make ASR data global"
+./kernel/v3_0/cdl/instrument.cdl:60:          buffer. This also makes it possible to put the circular
+./kernel/v3_0/cdl/instrument.cdl:272:	Make (using a shell script) include/cyg/kernel/instrument_desc.h in
+./kernel/v3_0/cdl/instrument.cdl:274:	If you make a permanent change to include/instrmnt.h, such that
+./kernel/v3_0/cdl/instrument.cdl:278:	in your source repository, make the new version by enabling this
+./kernel/v3_0/cdl/instrument.cdl:284:	make -priority 50 {
+./kernel/v3_0/cdl/instrument.cdl:299:	make -priority 51 {
+./kernel/v3_0/cdl/synch.cdl:206:        different mutex as an argument. This makes no difference to the semantics
+./kernel/v3_0/cdl/synch.cdl:216:        adversely affect code size in application that make lots of mqueue
+./kernel/v3_0/cdl/thread.cdl:87:        This option makes the kernel keep track of the lower limit on
+./kernel/v3_0/cdl/thread.cdl:127:	this value will make the overflow more, not less likely, of course."
+./kernel/v3_0/cdl/thread.cdl:259:                Enabling this option makes the thread destructors a per-thread
+./kernel/v3_0/cdl/thread.cdl:261:                Disabling this option makes the thread destructor list
+./fs/rom/v3_0/cdl/romfs.cdl:72:        make -priority 100 {
+./fs/rom/v3_0/cdl/romfs.cdl:113:        make -priority 100 {
+./fs/rom/v3_0/cdl/romfs.cdl:124:        make -priority 100 {
+./net/ppp/v3_0/cdl/ppp.cdl:340:                     to make the PPP connection."
+./net/ppp/v3_0/cdl/ppp.cdl:367:            make -priority 320 {
+./net/common/v3_0/cdl/net.cdl:180:		          packets. This can make upload/download
+./net/bsd_tcpip/v3_0/cdl/freebsd_net.cdl:423:	        so it may be acceptable to make this value very small,
+./net/tcpip/v3_0/cdl/openbsd_net.cdl:312:	        so it may be acceptable to make this value very small,
+./net/snmp/lib/v3_0/cdl/snmplib.cdl:104:	    activity, often enough to make your SNMP client time out."
+./devs/eth/mips/upd985xx/v3_0/cdl/upd985xx_eth_drivers.cdl:162:	Behaviour Analysis Report to make your decision about which of
+./devs/eth/intel/i82559/v3_0/cdl/intel_i82559_eth_drivers.cdl:63:    # SNMP demands to know stuff; this sadly makes us break the neat
+./devs/eth/intel/i82544/v3_0/cdl/intel_i82544_eth_drivers.cdl:62:    # SNMP demands to know stuff; this sadly makes us break the neat
+./devs/eth/rltk/8139/v3_0/cdl/rltk_8139_eth_drivers.cdl:63:    # SNMP demands to know stuff; this sadly makes us break the neat
+./devs/eth/m68k/mcf5272/v3_0/cdl/mcf5272_eth.cdl:87:            of buffers makes lost packets more likely, potentially causing
+./devs/can/arm/lpc2xxx/v3_0/cdl/can_lpc2xxx.cdl:359:        make -priority 320 {
+./devs/can/arm/lpc2xxx/v3_0/cdl/can_lpc2xxx.cdl:371:        make -priority 320 {
+./devs/can/arm/lpc2xxx/v3_0/cdl/can_lpc2xxx.cdl:383:        make -priority 320 {
+./devs/can/arm/lpc2xxx/v3_0/cdl/can_lpc2xxx.cdl:395:        make -priority 320 {
+./devs/can/m68k/mcf52xx/v3_0/cdl/can_mcf52xx.cdl:263:        make -priority 320 {
+./devs/framebuf/synth/v3_0/cdl/framebuf_synth.cdl:191:        make -priority=1 {
+./devs/usb/nec_upd985xx/v3_0/cdl/usbs_upd985xx.cdl:57:    # Make sure that we are running on the right hardware.
+./devs/usb/sa11x0/v3_0/cdl/usbs_sa11x0.cdl:57:    # Make sure that we are running on the right hardware.
+./devs/flash/synth/v3_0/cdl/flash_synth.cdl:87:              makes to FLASH contents."
+./io/can/v3_0/cdl/io_can.cdl:273:        make -priority 320 {
+./io/can/v3_0/cdl/io_can.cdl:285:        make -priority 320 {
+./io/can/v3_0/cdl/io_can.cdl:297:        make -priority 320 {
+./io/can/v3_0/cdl/io_can.cdl:309:        make -priority 320 {
+./io/can/v3_0/cdl/io_can.cdl:321:        make -priority 320 {
+./io/framebuf/v3_0/cdl/framebuf.cdl:58:    make -priority 2 {
+./io/framebuf/v3_0/cdl/framebuf.cdl:175:              hidden area. This makes it possible to update the display more
+./io/serial/v3_0/cdl/io_serial.cdl:250:        make -priority 320 {
+./io/watchdog/v3_0/cdl/watchdog.cdl:57:	The watchdog IO device allows applications to make use of a
+./io/watchdog/v3_0/cdl/watchdog.cdl:113:            implementations it does not make sense to register timeout
+./io/watchdog/v3_0/cdl/watchdog.cdl:129:            it only makes sense to use interactively."
+./cygmon/v3_0/cdl/cygmon.cdl:106:        make -priority 320 {
+./infra/v3_0/cdl/infra.cdl:252:        display       "Make all compiler warnings show as errors"
+./infra/v3_0/cdl/infra.cdl:264:        display       "Make compiler and assembler communicate by pipe"
+./services/compress/zlib/v3_0/cdl/compress_zlib.cdl:67:    cdl_option  CYGSEM_COMPRESS_ZLIB_DEFLATE_MAKES_GZIP {
+./services/gfx/mw/v3_0/cdl/microwindows.cdl:149:            make -priority 320 {
+./services/loader/v3_0/cdl/loader.cdl:127:	make -priority 50 {
+./services/loader/v3_0/cdl/loader.cdl:143:	make -priority 110 {
+./services/loader/v3_0/cdl/loader.cdl:158:	make -priority 110 {
+./services/loader/v3_0/cdl/loader.cdl:177:	make -priority 160 {
+./services/loader/v3_0/cdl/loader.cdl:198:	make {
+./services/loader/v3_0/cdl/loader.cdl:218:	make {
+./services/memalloc/common/v3_0/cdl/memalloc.cdl:80:                display        "Make thread safe"
+./services/memalloc/common/v3_0/cdl/memalloc.cdl:103:                display        "Make thread safe"
+./services/memalloc/common/v3_0/cdl/memalloc.cdl:150:                display       "Make thread safe"
+./services/memalloc/common/v3_0/cdl/memalloc.cdl:213:                display        "Make thread safe"
+./services/memalloc/common/v3_0/cdl/memalloc.cdl:274:        make -priority 50 {
+./services/memalloc/common/v3_0/cdl/memalloc.cdl:283:        make -priority 50 {
+./services/memalloc/common/v3_0/cdl/memalloc.cdl:290:        make_object {
+./services/objloader/v3_0/cdl/objloader.cdl:165:        make -priority 320 {
+./services/objloader/v3_0/cdl/objloader.cdl:171:        make -priority 322 {
+./services/objloader/v3_0/cdl/objloader.cdl:179:        make -priority 322 {
+./services/power/common/v3_0/cdl/power.cdl:95:            makes power management calls, a separate thread is redundant.
+./language/c/libm/v3_0/cdl/libm.cdl:120:                This option makes the setting of the compatiblity
+./language/c/libm/v3_0/cdl/libm.cdl:130:                This option makes the gamma() and lgamma()
+./language/c/libm/v3_0/cdl/libm.cdl:135:                signgam. Enabling this option makes signgam
+./language/c/libc/signals/v3_0/cdl/signals.cdl:136:                Enabling this option makes raise() an inline function."
+./language/c/libc/signals/v3_0/cdl/signals.cdl:143:                Enabling this option makes signal() an inline function."
+./language/c/libc/startup/v3_0/cdl/startup.cdl:256:        display        "Make exit() call fflush()"
+./hal/common/v3_0/cdl/hal.cdl:70:    make -priority 250 {
+./hal/common/v3_0/cdl/hal.cdl:127:                code size. However it can make source-level debugging more
+./hal/common/v3_0/cdl/hal.cdl:239:                    when the HAL initialization code will make use
+./hal/common/v3_0/cdl/hal.cdl:249:                    when the HAL initialization code will make use
+./hal/common/v3_0/cdl/hal.cdl:382:            make -priority 315 {
+./hal/common/v3_0/cdl/interrupts.cdl:118:        reduces code size. However it can make source-level debugging
+./hal/common/v3_0/cdl/common.cdl:171:                libraries. That should be done in the application's own makefile
+./hal/common/v3_0/cdl/common.cdl:189:                allow the user to make customisations to the grouped library
+./hal/common/v3_0/cdl/debugging.cdl:138:        will make to send a \$O packet to a host GDB process.  If it is
+./hal/arm/arch/v3_0/cdl/hal_arm.cdl:67:    make -priority 1 {
+./hal/arm/arch/v3_0/cdl/hal_arm.cdl:77:    make {
+./hal/arm/arch/v3_0/cdl/hal_arm.cdl:86:    make {
+./hal/arm/arm9/som2416/v3_0/cdl/hal_arm_arm9_som2416.cdl:276:            make -priority 320 {
+./hal/arm/arm9/som2416/v3_0/cdl/hal_arm_arm9_som2416.cdl:413:            make -priority 325 {
