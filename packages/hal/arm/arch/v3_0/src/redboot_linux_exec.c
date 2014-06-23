@@ -118,10 +118,8 @@ RedBoot_cmd("exec",
 #endif
 
 #define __CYGARC_SET_CTLREG(__paddr__) \
-	" ldr r1,=0x30001f00 \n"		\
-  "  mcr p15,0,r0,c1,c0,0 \n"          \
-  "mov pc, r1 \n"
-//  "   mov pc," #__paddr__ "\n"
+  "   mcr p15,0,r0,c1,c0,0\n"          \
+  "   mov pc," #__paddr__ "\n"
 
 #define CYGARC_HAL_MMU_OFF(__paddr__)  \
   "   mcr p15,0,r0,c7,c10,4\n"         \
@@ -129,17 +127,6 @@ RedBoot_cmd("exec",
   __CYGARC_GET_CTLREG                  \
   __CYGARC_CLR_MMU_BITS                \
   __CYGARC_SET_CTLREG(__paddr__)
-
-#define MMU_DisableMMUJump(__paddr__)\	
-  "   mrc p15,0,r0,c1,c0,0\n" \
-  "   bic r0,r0,#1 \n"    \
-  __CYGARC_SET_CTLREG(__paddr__)
-
-#define MMU_DisableMMU() \
-  "   mrc p15,0,r0,c1,c0,0\n" \
-  "   bic r0,r0,#1 \n"    \
-  "   mcr p15,0,r0,c1,c0,0\n" 	
-
 
 #define CYGARC_HAL_MMU_OFF_X(__paddr__)  \
   "   mcr p15,0,r0,c7,c10,4\n"           \
@@ -326,7 +313,6 @@ do_exec(int argc, char *argv[])
     bool ramdisk_addr_set, ramdisk_size_set;
     unsigned long base_addr, length;
     unsigned long ramdisk_addr, ramdisk_size;
-    volatile int debug_switch=0;
     struct option_info opts[7];
     char line[8];
     char *cmd_line;
@@ -443,10 +429,6 @@ do_exec(int argc, char *argv[])
 #ifdef CYGPKG_IO_ETH_DRIVERS
     eth_drv_stop();
 #endif
-    diag_printf("will start kernel: entry:0x%x; base adr: 0x%x; len: 0x%x; Machine type:0x%x, target:0x%x; trampadr:0x%x; tag adr:0x%x\n",
-        entry,CYGARC_PHYSICAL_ADDRESS(base_addr),length,CYGHWR_REDBOOT_ARM_MACHINE_TYPE,target,
-        CYGARC_PHYSICAL_ADDRESS(CYGHWR_REDBOOT_ARM_TRAMPOLINE_ADDRESS),
-        CYGARC_PHYSICAL_ADDRESS(CYGHWR_REDBOOT_ARM_LINUX_TAGS_ADDRESS));
 
     HAL_DISABLE_INTERRUPTS(oldints);
     HAL_DCACHE_SYNC();
@@ -506,51 +488,28 @@ do_exec(int argc, char *argv[])
     }
 #endif // CYGHWR_REDBOOT_LINUX_EXEC_X_SWITCH
 
-   diag_printf("copy trampline from: 0x%x, to :0x%x-ph:0x%x\n, len:0x%x", __tramp_start__,CYGHWR_REDBOOT_ARM_TRAMPOLINE_ADDRESS,
-   	CYGARC_PHYSICAL_ADDRESS(CYGHWR_REDBOOT_ARM_TRAMPOLINE_ADDRESS), __tramp_end__-__tramp_start__);
     // copy the trampline code
     memcpy((char *)CYGHWR_REDBOOT_ARM_TRAMPOLINE_ADDRESS,
 	   __tramp_start__,
 	   __tramp_end__ - __tramp_start__);
-    if(debug_switch==0)
-     asm volatile (
-//		"add pc, pc, #0x30000000; \n"
-//		"mov r0,r0 ;\n"
-	"mov pc, %5 ;\n"
 
-       CYGARC_HAL_MMU_OFF(%5)       
-//        MMU_DisableMMUJump(%5)
-//	MMU_DisableMMU()
-        
-        "mov r0,r0 ;\n"
-	"mov r0,r0 ;\n"
-	"mov r0,r0 ;\n"
-	"mov r0,r0 ;\n"
+    asm volatile (
+        CYGARC_HAL_MMU_OFF(%5)
         "__tramp_start__:\n"
-	"mov r0,r0 ;\n"
-	"mov r0,r0 ;\n"
-	"mov r0,r0 ;\n"
-	"mov r0,r0 ;\n"
-        " ldr r0, =0x56000024;\n"	//turn off led
-        " ldr r1, [r0];\n"
-        " orr r1, r1, #(0x1<<5);\n"
-        " str r1,[r0];\n"
-        "b .  ;\n"
-        
         " cmp %1,%4;\n"       // Default kernel load address. Relocate
         " beq 2f;\n"          // kernel image there if necessary, and
         " cmp %2,#0;\n"       // if size is non-zero
         " beq 2f;\n"
         "1:\n"
-        " ldr r0,[%1],#4;\n"  //copy code from entry/phisical address to target/linux_exec_address
+        " ldr r0,[%1],#4;\n"
         " str r0,[%4],#4;\n"
         " subs %2,%2,#4;\n"
         " bne 1b;\n"
-        "2:\n"
+        "2:\n" 
         " mov r0,#0;\n"       // Set board type
         " mov r1,%3;\n"       // Machine type
         " mov r2,%6;\n"       // Kernel parameters
-        " mov pc,%0;\n"       // Jump to kernel //?? why not %4
+        " mov pc,%0;\n"       // Jump to kernel
         "__tramp_end__:\n"
         : : 
         "r"(entry),
