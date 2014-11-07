@@ -82,7 +82,7 @@
 #define	flash_printf(str,args...) {}
 #endif
 
-#define KEPT_BLOCKS  4 
+#define KEPT_BLOCKS  0 
            //Block0:nboot; Block1..2:Redboot; start from Block3; Block3,
     		//empty block; used to notify nboot the load process was over.
 
@@ -117,9 +117,9 @@ flash_hwr_init(void)
 
     // Fill in device details
     flash_info.block_size = BYTES_PERBLOCK;
-    flash_info.blocks = BLOCKS_INNAND;
-    flash_info.start = (void *)(BYTES_PERBLOCK*KEPT_BLOCKS);	
-    flash_info.end = (void *)(BLOCKS_INNAND*BYTES_PERBLOCK);
+    flash_info.blocks = BLOCKS_INNAND-KEPT_BLOCKS;
+    flash_info.start = 0;	
+    flash_info.end = (void *)((BLOCKS_INNAND-KEPT_BLOCKS)*BYTES_PERBLOCK);
     return FLASH_ERR_OK;
 }
 
@@ -144,13 +144,8 @@ flash_code_overlaps(void *start, void *end)
 {
 //    extern unsigned char __stext[], __etext[];	//defined by the linker
 //    extern unsigned char edata[]; //defined by the linker(target.ld). 
-    
-	//cyg_halint32 codeblocks= (((unsigned int)edata-0x00100000)/BYTES_PERBLOCK)+2; //blocks of code space, include nboot space	
-//	if(start < (codeblocks*BYTES_PERBLOCK))
-	if(start < (BYTES_PERBLOCK*KEPT_BLOCKS))
-		return true;
-	else
-		return false;
+
+return false;	//flash address different with sdram
 }
 
 #define BLOCK_ADR(x) (x>>17)	//x/128K

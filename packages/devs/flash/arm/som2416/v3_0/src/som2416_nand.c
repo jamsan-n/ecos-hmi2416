@@ -491,10 +491,11 @@ int Adv_NF8_ReadPage(unsigned int block,unsigned int page,unsigned char *buffer)
 	NF_MECC_Lock();
 
 	NF_SECC_UnLock();
-	Adv_NF8_Spare_Data[0]=NF_RDDATA8();
-	Mecc=NF_RDDATA();
-	rNFMECCD0=((Mecc&0xff00)<<8)|(Mecc&0xff);
-	rNFMECCD1=((Mecc&0xff000000)>>8)|((Mecc&0xff0000)>>16);
+	Adv_NF8_Spare_Data[0]=NF_RDDATA8();  //不用，抛弃。为bad block标志
+	Mecc=NF_RDDATA();		//读到4byte
+	rNFMECCD0=((Mecc&0xff00)<<8)|(Mecc&0xff); //bit23..16; 0..7 ; not equals to rNFMECC0 which for write
+                        //NFMECC0 generate when read or write; NFMECCD0 was used to compare.
+	rNFMECCD1=((Mecc&0xff000000)>>8)|((Mecc&0xff0000)>>16); //bit23..16; 0..7
 
 	Adv_NF8_Spare_Data[1]=Mecc&0xff;
 	Adv_NF8_Spare_Data[2]=(Mecc&0xff00)>>8;
@@ -506,9 +507,9 @@ int Adv_NF8_ReadPage(unsigned int block,unsigned int page,unsigned char *buffer)
 	Adv_NF8_Spare_Data[7]=NF_RDDATA8();  // read 7
 
 	NF_SECC_Lock();
-	Secc=NF_RDDATA();
-	rNFSECCD=((Secc&0xff00)<<8)|(Secc&0xff);
-	Adv_NF8_Spare_Data[8]=Secc&0xff;
+	Secc=NF_RDDATA();  //spare data byte 8..11为secc校验字
+	rNFSECCD=((Secc&0xff00)<<8)|(Secc&0xff);  //23..16; 0..7
+	Adv_NF8_Spare_Data[8]=Secc&0xff;    	
 	Adv_NF8_Spare_Data[9]=(Secc&0xff00)>>8;
 	Adv_NF8_Spare_Data[10]=(Secc&0xff0000)>>16;
 	Adv_NF8_Spare_Data[11]=(Secc&0xff000000)>>24;
@@ -701,7 +702,7 @@ int Adv_NF8_WritePage(unsigned int block,unsigned int page,const unsigned char *
 	// Get ECC data.
 	// Spare data for 8bit
 	// byte  0                  1    2     3     4          5               6      7            8         9
-	// ecc  [Bad marking] [0]  [1]  [2]  [3]    x                       SECC0  SECC1
+	// ecc  [Bad marking] [0]  [1]  [2]  [3]    x           x               x      x           SECC0  SECC1
 	Mecc = rNFMECC0;
 
 	Adv_se8Buf[0]=0xff;
@@ -832,7 +833,7 @@ void NF8_Init(void)
     Nand_Reset();
 #if NAND_TRANS_MODE==NAND_DMA	
 	rDMAREQSEL0=0;	////S/W request mode
-    rINTMSK |=BIT_DMA;	//��ֹ����dma�ж�
+    rINTMSK |=BIT_DMA;	//\BD\FBֹ\CB\F9\D3\D0dma\D6ж\CF
     rINTSUBMSK |=BIT_SUB_DMA0;
 	rDMASKTRIG0 |= (0x1<<2);	//stop dma
 #endif
